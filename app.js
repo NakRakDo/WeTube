@@ -14,15 +14,16 @@ const app = express();
 //미들웨어
 app.use(helmet());
 app.set("view engine", "pug") //view 엔진으로 pug를 쓰겠다. default -> undefined
-app.use("/uploads", express.static("uploads")) // 주어진 directory에서 file을 보내주는 middleware
+app.use("/uploads", express.static("uploads")); // 주어진 directory에서 file을 보내주는 middleware
+app.use("/static", express.static("static"));
 app.use(cookieParser());
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended : true})); 
 app.use(logger("dev"));
-app.use(function(req, res, next) {
-   res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
-   return next();
-});
+// app.use(function(req, res, next) {
+//    res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
+//    return next();
+// });
 
 // local 변수 -> Global 변수 : 결국 local 기능을 통해 변수에 접근
 app.use(localsMiddleware);
